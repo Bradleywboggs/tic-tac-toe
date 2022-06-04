@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+  tic-tac-toe:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    hostname: tic-tac-toe
+    depends_on:
+      - redis
+    ports:
+      - '8000:80'
+    environment:
+      ENV: prod
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+  redis:
+    image:
+      redis
+    container_name: redis
+    hostname: redis
+    restart: always
+    ports:
+      - '6379:6379'
+    volumes:
+      - ./:/data
+
+
